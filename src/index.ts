@@ -16,10 +16,6 @@ main();
 async function main() {
 	for await (const file of readdirp(join(__dirname, 'commands'), { fileFilter: '*.js' })) {
 		const preload = await import(file.fullPath);
-		if (isCommand(preload)) {
-			box.data.commands.set(preload.name, preload);
-		}
-
 		for (const value of Object.values(preload)) {
 			if (isCommand(value)) {
 				box.data.commands.set(value.name, value);
@@ -29,10 +25,12 @@ async function main() {
 
 	for await (const file of readdirp(join(__dirname, 'listeners'), { fileFilter: '*.js' })) {
 		const preload = await import(file.fullPath);
-		if (isEvent(preload)) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			client[preload.once ? 'once' : 'on'](preload.name, (...args: any[]) => preload.run(...args));
+		for (const value of Object.values(preload)) {
+			if (isEvent(value)) {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				client[value.once ? 'once' : 'on'](value.event, (...args: any[]) => value.run(...args));
+				console.log(`[EVENT] + ${value.event} ${value.event}`);
+			}
 		}
 	}
-
 }

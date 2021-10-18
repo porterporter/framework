@@ -1,12 +1,10 @@
 import { Event } from '@lib/Event';
 import type { Client } from '@lib/Client';
 
-export class interactionCreate extends Event {
+export class readyEvent extends Event {
 	constructor() {
-		super({
-			name: 'ready',
-			event: 'ready',
-		});
+		super();
+		this.name:
 	}
 
 	public async run(client: Client) {
