@@ -1,6 +1,7 @@
 import type { CommandInteraction } from 'discord.js';
 import { Piece, PieceContext } from '@sapphire/pieces';
 
+export type Awaitable<T> = PromiseLike<T> | T;
 
 export abstract class Command extends Piece {
 	public readonly name: string;
@@ -18,7 +19,7 @@ export abstract class Command extends Piece {
 		this.restrictions = options.restrictions;
 	}
 
-	public abstract run(interaction: CommandInteraction): unknown
+	public abstract run(interaction: CommandInteraction): Awaitable<unknown>;
 
 }
 

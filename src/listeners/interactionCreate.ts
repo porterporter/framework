@@ -1,8 +1,5 @@
-import { Listener } from '@lib/Listener';
+import { Listener, ListenerOptions } from '@lib/Listener';
 import type { PieceContext } from '@sapphire/pieces';
-import type { ListenerOptions } from '@lib/Listener';
-import { container } from '@sapphire/pieces';
-
 
 import type { CommandInteraction } from 'discord.js';
 export class interactionCreate extends Listener {
@@ -16,7 +13,7 @@ export class interactionCreate extends Listener {
 
 	public async run(interaction: CommandInteraction) {
 		try {
-			const command = container.stores.get('commands')?.get(interaction.commandName);
+			const command = this.container.stores.get('commands')?.get(interaction.commandName);
 			if(!command) return;
 
 			if(command.ownerOnly && interaction.user.id !== process.env.OWNER_ID) return;
@@ -24,7 +21,7 @@ export class interactionCreate extends Listener {
 			if(command.restrictions === 'guild' && !interaction.guild?.id) return interaction.reply({ content: 'This command can only be ran in servers!', ephemeral: true });
 			if(command.restrictions === 'dms' && interaction.guild?.id) return interaction.reply({ content: 'This command can only be ran in DMs!', ephemeral: true });
 
-			command.run(interaction);
+			return command.run(interaction);
 		} catch (e) {
 			console.log(e);
 			interaction.reply({ content: 'There was an error running your command! Please try again', ephemeral: true });

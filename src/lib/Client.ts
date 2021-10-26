@@ -35,15 +35,14 @@ export class Client extends DClient {
 	}
 
 	public async login(token?: string) {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		await Promise.all([...this.stores.values()].map((store: any) => store.loadAll()));
+		await Promise.all([...this.stores.values()].map((store) => store.loadAll()));
 		this.loadEvents();
 		return super.login(token ??= process.env.DISCORD_TOKEN);
 	}
 
 	public async loadEvents() {
 		this.stores.get('events').forEach((event) => {
-			event.once ? this.once(event.event, event.run.bind(this)) : this.on(event.event, event.run.bind(this));
+			event.once ? this.once(event.event, (...args) => event.run(...args)) : this.on(event.event, (...args) => event.run(...args));
 		});
 	}
 }
