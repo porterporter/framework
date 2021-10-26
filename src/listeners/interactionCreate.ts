@@ -1,11 +1,13 @@
 import { Event } from '@lib/Event';
-import { box } from '@lib/box';
+import type { PieceContext } from '@sapphire/pieces';
+import type { EventOptions } from '@lib/Event';
 
 
 import type { CommandInteraction } from 'discord.js';
 export class interactionCreate extends Event {
-	constructor() {
-		super({
+	constructor(context: PieceContext, options: EventOptions) {
+		super(context, {
+			...options,
 			name: 'interactionCreate',
 			event: 'interactionCreate',
 		});
@@ -13,7 +15,7 @@ export class interactionCreate extends Event {
 
 	public async run(interaction: CommandInteraction) {
 		try {
-			const command = box.data.commands.get(interaction.commandName);
+			const command = this.container.data.commands.get(interaction.commandName);
 			if(!command) return;
 
 			if(command.ownerOnly && interaction.user.id !== process.env.OWNER_ID) return;
