@@ -1,11 +1,11 @@
 import { Piece, PieceContext } from '@sapphire/pieces';
 
-export abstract class Event extends Piece {
+export abstract class Listener extends Piece {
 	public readonly name: string;
 	public readonly event: string;
 	public readonly once: boolean;
 
-	constructor(context: PieceContext, options: { name: string, event: string, once?: boolean }) {
+	constructor(context: PieceContext, options: ListenerOptions) {
 		super(context, options);
 		this.name = options.name;
 		this.event = options.event;
@@ -17,7 +17,7 @@ export abstract class Event extends Piece {
 
 }
 
-export interface EventOptions {
+export interface ListenerOptions {
 	name: string,
 	event: string,
 	once?: boolean

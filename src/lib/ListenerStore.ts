@@ -1,9 +1,9 @@
 import { Store } from '@sapphire/pieces';
-import { Event } from '@lib/Event';
+import { Listener } from '@lib/Listener';
 
-export class ListenerStore extends Store<Event> {
+export class ListenerStore extends Store<Listener> {
 	public constructor() {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		super(Event as any, { name: 'events' });
+		super(Listener as any, { name: 'events' });
 	}
 }

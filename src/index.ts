@@ -6,4 +6,4 @@ import { Client } from '@lib/Client';
 
 const client = new Client();
 client.login();
-client.stores.forEach(store => console.log(store));
+

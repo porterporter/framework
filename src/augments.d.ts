@@ -1,13 +1,13 @@
 import type { Client } from '@lib/Client';
-import type { Command } from '@lib/Command';
-import Collection from '@discordjs/collection';
-
+import type { CommandStore } from '@lib/CommandStore';
+import type { ListenerStore } from '@lib/ListenerStore';
 
 declare module '@sapphire/pieces' {
     export interface Container {
         client: Client;
-		data: {
-			commands: Collection<string, Command>;
-		}
     }
+    interface StoreRegistryEntries {
+		commands: CommandStore;
+		events: ListenerStore;
+	}
 }

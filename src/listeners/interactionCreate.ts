@@ -1,11 +1,12 @@
-import { Event } from '@lib/Event';
+import { Listener } from '@lib/Listener';
 import type { PieceContext } from '@sapphire/pieces';
-import type { EventOptions } from '@lib/Event';
+import type { ListenerOptions } from '@lib/Listener';
+import { container } from '@sapphire/pieces';
 
 
 import type { CommandInteraction } from 'discord.js';
-export class interactionCreate extends Event {
-	constructor(context: PieceContext, options: EventOptions) {
+export class interactionCreate extends Listener {
+	constructor(context: PieceContext, options: ListenerOptions) {
 		super(context, {
 			...options,
 			name: 'interactionCreate',
@@ -15,7 +16,7 @@ export class interactionCreate extends Event {
 
 	public async run(interaction: CommandInteraction) {
 		try {
-			const command = this.container.data.commands.get(interaction.commandName);
+			const command = container.stores.get('commands')?.get(interaction.commandName);
 			if(!command) return;
 
 			if(command.ownerOnly && interaction.user.id !== process.env.OWNER_ID) return;
@@ -25,6 +26,7 @@ export class interactionCreate extends Event {
 
 			command.run(interaction);
 		} catch (e) {
+			console.log(e);
 			interaction.reply({ content: 'There was an error running your command! Please try again', ephemeral: true });
 			// if(button collector?) send error to db???
 		}

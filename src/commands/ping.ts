@@ -6,7 +6,8 @@ export class UserCommand extends Command {
 	constructor(context: PieceContext, options: CommandOptions) {
 		super(context, {
 			...options,
-			name: 'interactionCreate',
+			name: 'ping',
+			restrictions: 'dms',
 		});
 	}
 
