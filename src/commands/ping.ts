@@ -7,7 +7,7 @@ export class interactionCreate extends Command {
 		super(context, {
 			...options,
 			name: 'ping',
-			description: 'pong!',
+			description: 'Display the bots latency and websocket ping.',
 		});
 	}
 
