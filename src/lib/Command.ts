@@ -1,4 +1,4 @@
-import type { CommandInteraction } from 'discord.js';
+import type { CommandInteraction, ApplicationCommandOption } from 'discord.js';
 import { Piece, PieceContext } from '@sapphire/pieces';
 
 export type Awaitable<T> = PromiseLike<T> | T;
@@ -9,6 +9,8 @@ export abstract class Command extends Piece {
 	public readonly description: string;
 	public readonly ownerOnly: boolean;
 	public readonly restrictions?: 'guild' | 'dms';
+	public readonly discordOptions: DiscordOptions;
+
 
 	constructor(context: PieceContext, options: CommandOptions) {
 		super(context, options);
@@ -17,6 +19,11 @@ export abstract class Command extends Piece {
 		this.description = options.description ?? 'The default command description.';
 		this.ownerOnly = options.ownerOnly ?? false;
 		this.restrictions = options.restrictions;
+		this.discordOptions = {
+			options: options.discordOptions?.options ?? [],
+			defaultPermission: options.discordOptions?.defaultPermission ?? true,
+		};
+
 	}
 
 	public abstract run(interaction: CommandInteraction): Awaitable<unknown>;
@@ -24,9 +31,23 @@ export abstract class Command extends Piece {
 }
 
 export interface CommandOptions {
-	name: string,
-	cooldown?: number,
-	description?: string,
-	ownerOnly?: boolean,
-	restrictions?: ('guild' | 'dms'),
+	name: string;
+	cooldown?: number;
+	description?: string;
+	ownerOnly?: boolean;
+	restrictions?: ('guild' | 'dms');
+	discordOptions?: DiscordOptions;
+}
+
+
+export interface DiscordOptions {
+	options: ApplicationCommandOption[];
+	defaultPermission: boolean;
+}
+
+export interface simpleCommand {
+	name: string;
+	description: string;
+	options: ApplicationCommandOption[],
+	defaultPermission: boolean;
 }

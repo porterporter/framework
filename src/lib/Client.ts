@@ -4,6 +4,7 @@ import { container, StoreRegistry } from '@sapphire/pieces';
 import { CommandStore } from '@lib/CommandStore';
 import { ListenerStore } from '@lib/ListenerStore';
 import { join } from 'path';
+import type { simpleCommand } from '@lib/Command';
 
 
 export class Client extends DClient {
@@ -14,6 +15,7 @@ export class Client extends DClient {
 		super({ ...options,
 			intents: [
 				'GUILDS',
+				'GUILD_MESSAGES',
 				'DIRECT_MESSAGES',
 			],
 			partials: [
@@ -36,7 +38,7 @@ export class Client extends DClient {
 
 	public async login(token?: string) {
 		await Promise.all([...this.stores.values()].map((store) => store.loadAll()));
-		this.loadEvents();
+		await this.loadEvents();
 		return super.login(token ??= process.env.DISCORD_TOKEN);
 	}
 
@@ -44,5 +46,32 @@ export class Client extends DClient {
 		this.stores.get('events').forEach((event) => {
 			event.once ? this.once(event.event, (...args) => event.run(...args)) : this.on(event.event, (...args) => event.run(...args));
 		});
+	}
+
+	public async loadCommands() {
+		let commands: simpleCommand[] = [];
+		this.stores.get('commands').forEach((command) => {
+			commands = [ ...commands, { name: command.name, description: command.description, options: command.discordOptions.options, defaultPermission: command.discordOptions.defaultPermission }];
+		});
+		const fetchedCommands = await this.application?.commands.fetch();
+		const publicCommands = fetchedCommands?.map((element) => {
+			if(element.guild) return;
+			return {
+				name: element.name,
+				description: element.description,
+				options: element.options,
+				defaultPermission: true,
+			};
+		});
+		if(JSON.stringify(publicCommands?.sort()) !== JSON.stringify(commands.sort())) {
+			console.log('Application commands out of sync! Redeploying now.');
+			try {
+				await this.application?.commands.set(commands);
+				console.log('Successfully deployed application commands.');
+			} catch (e) {
+				console.log('Error deploying slash commands!');
+			}
+		}
+
 	}
 }
