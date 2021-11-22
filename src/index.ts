@@ -5,5 +5,4 @@ config();
 import { Client } from '@lib/Client';
 
 const client = new Client();
-client.login().then(() => { client.loadCommands(); });
-
+client.login();

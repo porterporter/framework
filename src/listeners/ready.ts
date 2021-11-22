@@ -12,8 +12,8 @@ export class readyEvent extends Listener {
 	}
 
 	public async run(client: Client) {
+		client.loadCommands();
 		console.log(`Logged in as: ${client.user?.tag}`);
 	}
-
 }
 

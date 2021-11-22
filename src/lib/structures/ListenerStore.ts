@@ -1,5 +1,5 @@
 import { Store } from '@sapphire/pieces';
-import { Listener } from '@lib/Listener';
+import { Listener } from '@lib/structures/Listener';
 
 export class ListenerStore extends Store<Listener> {
 	public constructor() {
