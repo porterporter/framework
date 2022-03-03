@@ -1,5 +1,5 @@
 import { Store } from '@sapphire/pieces';
-import { Precondition } from '@lib/structures/Precondition';
+import { Precondition } from '@structures/Precondition';
 
 export class PreconditionStore extends Store<Precondition> {
 	public constructor() {

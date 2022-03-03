@@ -1,5 +1,5 @@
 import { Store } from '@sapphire/pieces';
-import { Command } from '@lib/structures/Command';
+import { Command } from '@structures/Command';
 
 export class CommandStore extends Store<Command> {
 	public constructor() {

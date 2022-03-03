@@ -8,9 +8,8 @@ export class interactionCreate extends Command {
 		super(context, {
 			...options,
 			data: new SlashCommandBuilder()
-				.setName('ping')
-				.setDescription('piiiiing!')
-				.setDefaultPermission(false),
+				.setName('reset')
+				.setDescription('resets all slash commands')
 			cooldown: 2000,
 		});
 	}

@@ -1,36 +1,40 @@
 {
-  "name": "awesome-boilerplate",
-  "version": "0.0.1",
+  "name": "framework",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "author": "juiceboy",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "eslint": "^7.32.0",
+    "@typescript-eslint/eslint-plugin": "^5.12.1",
+    "@typescript-eslint/parser": "^5.12.1",
+    "eslint": "^8.9.0",
     "npm-run-all": "^4.1.5",
-    "tsc-watch": "^4.5.0",
-    "typescript": "^4.4.3"
+    "tsup": "^5.11.13",
+    "typescript": "^4.5.5"
   },
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
+    "build": "tsup ./src/",
+    "watch": "tsup ./src/ --watch --onSuccess 'node dist\\index.ts'",
     "start": "node dist/index.js",
     "dev": "run-s build start",
-    "watch:start": "tsc-watch --onSuccess \"node .\"",
     "lint": "eslint ."
   },
   "dependencies": {
     "@discordjs/builders": "^0.8.2",
+    "@discordjs/rest": "^0.3.0",
     "@sapphire/pieces": "^3.1.0",
+    "@sapphire/ratelimits": "^2.3.1",
     "@sapphire/utilities": "^3.0.2",
-    "@typescript-eslint/parser": "^4.33.0",
+    "discord-api-types": "^0.27.3",
     "discord.js": "^13.2.0",
     "dotenv": "^10.0.0",
     "module-alias": "^2.2.2",
-    "readdirp": "^3.6.0"
+    "readdirp": "^3.6.0",
+    "undici": "^4.14.1"
   },
   "_moduleAliases": {
     "@lib": "dist/lib",
     "@commands": "dist/commands",
-    "buttons": "dist/buttons"
+    "@structures": "dist/lib/structures",
+    "@stores": "dist/lib/stores"
   }
 }

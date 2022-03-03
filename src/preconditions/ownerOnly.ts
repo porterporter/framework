@@ -1,4 +1,4 @@
-import { Precondition, PreconditionOptions } from '@lib/Precondition';
+import { Precondition, PreconditionOptions } from '@lib/structures/Precondition';
 import type { PieceContext } from '@sapphire/pieces';
 
 import type { CommandInteraction } from 'discord.js';

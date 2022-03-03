@@ -1,6 +1,6 @@
-import { Listener, ListenerOptions } from '@lib/Listener';
+import { Listener, ListenerOptions } from '@lib/structures/Listener';
 import type { PieceContext } from '@sapphire/pieces';
-import type { Client } from '@lib/Client';
+import type { Client } from '@lib/structures/Client';
 
 export class readyEvent extends Listener {
 	constructor(context: PieceContext, options: ListenerOptions) {

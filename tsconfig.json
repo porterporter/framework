@@ -39,6 +39,12 @@
             "@lib/*": [
                 "lib/*"
             ],
+            "@structures/*": [
+                "lib/structures/*"
+            ],
+            "@stores/*": [
+                "lib/stores/*"
+            ],
             "@commands/*": [
                 "commands/*"
             ],

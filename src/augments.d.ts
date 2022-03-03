@@ -1,7 +1,7 @@
 import type { Client } from '@lib/structures/Client';
-import type { CommandStore } from '@lib/structures/CommandStore';
-import type { ListenerStore } from '@lib/structures/ListenerStore';
-import type { PreconditionStore } from '@lib/structures/PreconditionStore';
+import type { CommandStore } from '@stores/CommandStore';
+import type { ListenerStore } from '@stores/ListenerStore';
+import type { PreconditionStore } from '@stores/PreconditionStore';
 
 declare module '@sapphire/pieces' {
     export interface Container {
