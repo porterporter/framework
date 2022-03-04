@@ -9,7 +9,7 @@ export class interactionCreate extends Command {
 			...options,
 			data: new SlashCommandBuilder()
 				.setName('reset')
-				.setDescription('resets all slash commands')
+				.setDescription('resets all slash commands'),
 			cooldown: 2000,
 		});
 	}

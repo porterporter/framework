@@ -11,8 +11,8 @@ export abstract class Command extends Piece {
 	public readonly preconditions: string[];
 	public readonly clientPermissions?: PermissionResolvable;
 	public readonly userPermissions?: PermissionResolvable;
-	public readonly data: Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
-	public readonly permissionLevel?: number
+	public readonly data: Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>;
+	public readonly permissionLevel?: number;
 
 
 	constructor(context: PieceContext, options: CommandOptions) {
